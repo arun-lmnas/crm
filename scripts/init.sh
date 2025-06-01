@@ -17,10 +17,12 @@ nvm use 20
 echo "nvm use 20" >> ~/.bashrc
 cd /workspace
 
+chown frappe:frappe /workspace/frappe-bench
+
 bench init \
 --ignore-exist \
 --skip-redis-config-generation \
-frappe-bench
+--frappe-branch version-15 frappe-bench
 
 cd frappe-bench
 
@@ -32,7 +34,6 @@ bench set-redis-socketio-host redis-socketio:6379
 
 # Remove redis from Procfile
 sed -i '/redis/d' ./Procfile
-
 
 bench new-site dev.localhost \
 --mariadb-root-password 123 \
